@@ -9,6 +9,10 @@ on:
 jobs:
   build_on_mac:
     runs-on: macOS-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: test-bdoink
     steps:
     - uses: actions/checkout@master
       with:
@@ -21,6 +25,10 @@ jobs:
 
   build_on_win:
     runs-on: windows-2016
+    defaults:
+      run:
+        shell: powershell
+        working-directory: test-bdoink
     steps:
     - uses: actions/checkout@master
       with:
