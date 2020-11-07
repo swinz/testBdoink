@@ -28,7 +28,7 @@ jobs:
       run: yarn electron:build --mac
     - name: see dist directory
       run: ls
-      working-directory:test-bdoink/dist_electron
+      working-directory: test-bdoink/dist_electron
 
   build_on_win:
     runs-on: windows-2016
