@@ -29,6 +29,14 @@ jobs:
     - name: see dist directory
       run: ls
       working-directory: test-bdoink/dist_electron
+    - name: archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: dist-without-markdown
+        path: |
+            test-bdoink/dist_electron/*.dmg
+            test-bdoink/dist_electron/*.zip
+
 
   build_on_win:
     runs-on: windows-2016
