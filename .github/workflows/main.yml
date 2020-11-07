@@ -33,9 +33,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: dist-without-markdown
-        path: |
-            test-bdoink/dist_electron/*.dmg
-            test-bdoink/dist_electron/*.zip
+        path: test-bdoink/dist_electron/*.dmg
 
 
   build_on_win:
