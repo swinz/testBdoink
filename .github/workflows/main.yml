@@ -33,7 +33,9 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: dist-mac-dmg
-        path: test-bdoink/dist_electron/test-bdoink-0.1.0.dmg
+        path: test-bdoink/dist_electron/*.dmg
+        retention-days: 1
+
 
 
   build_on_win:
@@ -58,3 +60,9 @@ jobs:
     - name: see dist directory
       run: ls
       working-directory: test-bdoink/dist_electron
+    - name: archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: dist-win-exe
+        path: test-bdoink/dist_electron/*.exe
+        retention-days: 1
