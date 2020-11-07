@@ -1,2 +1,2 @@
 # testBdoink
-Test the Bdoinks
+Test the Bdoinks.
