@@ -32,8 +32,8 @@ jobs:
     - name: archive artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: dist-without-markdown
-        path: test-bdoink/dist_electron/*.dmg
+        name: dist-mac-dmg
+        path: test-bdoink/dist_electron/test-bdoink-0.1.0.dmg
 
 
   build_on_win:
