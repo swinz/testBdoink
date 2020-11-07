@@ -22,6 +22,13 @@ jobs:
         node-version: 12.14
     - name: see directory
       run: ls
+    - name: install
+      run: yarn install
+    - name: build
+      run: yarn electron:build --mac
+    - name: see dist directory
+      run: ls
+      working-directory:test-bdoink/dist_electron
 
   build_on_win:
     runs-on: windows-2016
@@ -38,3 +45,10 @@ jobs:
         node-version: 12.14
     - name: see directory
       run: ls
+    - name: install
+      run: yarn install
+    - name: build
+      run: yarn electron:build --win
+    - name: see dist directory
+      run: ls
+      working-directory:test-bdoink/dist_electron
