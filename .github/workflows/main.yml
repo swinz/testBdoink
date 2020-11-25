@@ -66,3 +66,33 @@ jobs:
         name: dist-win-exe
         path: test-bdoink/dist_electron/*.exe
         retention-days: 1
+
+
+  build_on_linux:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: test-bdoink
+    steps:
+    - uses: actions/checkout@master
+      with:
+        ref: main
+    - uses: actions/setup-node@master
+      with:
+        node-version: 12.14
+    - name: see directory
+      run: ls
+    - name: install
+      run: yarn install
+    - name: build
+      run: yarn electron:build --linux deb
+    - name: see dist directory
+      run: ls
+      working-directory: test-bdoink/dist_electron
+    - name: archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: dist-linux-deb
+        path: test-bdoink/dist_electron/*.deb
+        retention-days: 1

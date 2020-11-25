@@ -1,7 +1,12 @@
 {
-  "name": "test-bdoink",
-  "version": "0.1.0",
-  "private": true,
+    "name": "test-bdoink",
+    "version": "0.1.0",
+    "private": true,
+    "author": {
+        "name": "test user",
+        "email": "test@example.com"
+    },
+    "homepage": "http://example.com/",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

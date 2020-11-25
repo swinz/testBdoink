@@ -2,6 +2,7 @@
 node_modules
 /dist
 
+*.bak
 
 # local env files
 .env.local
