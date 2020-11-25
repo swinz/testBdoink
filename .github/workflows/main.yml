@@ -86,7 +86,7 @@ jobs:
     - name: install
       run: yarn install
     - name: build
-      run: yarn electron:build --linux deb
+      run: yarn electron:build --linux deb --x64 --armv7l --arm64
     - name: see dist directory
       run: ls
       working-directory: test-bdoink/dist_electron
