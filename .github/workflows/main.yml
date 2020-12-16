@@ -8,7 +8,7 @@ on:
 # this is where the magic happens, each job happens in parallel btw
 jobs:
   build_on_mac:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     defaults:
       run:
         shell: bash
@@ -114,6 +114,16 @@ jobs:
           path: temppkg
       - name: 'Echo download path'
         run: echo ${{steps.download_linux.outputs.download-path}}
+      - id: download_win
+        uses: actions/download-artifact@v2
+        with:
+          name: dist-win-exe
+          path: temppkg
+      - id: download_mac
+        uses: actions/download-artifact@v2
+        with:
+          name: dist-mac-dmg
+          path: temppkg
       - name: Display structure of downloaded files
         run: ls -R
       - name: Display package directory
