@@ -96,3 +96,25 @@ jobs:
         name: dist-linux-deb
         path: test-bdoink/dist_electron/*.deb
         retention-days: 1
+
+  s3_artifact_deploy:
+    runs-on: ubuntu-latest
+    needs: [build_on_linux, build_on_mac, build_on_win]
+    defaults:
+      run:
+        shell: bash
+        working-directory: test-bdoink
+    steps:
+      - name: Create packages directory
+        shell: bash
+        run: |
+          mkdir _pkgs
+      - id: download_linux
+        uses: actions/download-artifact@v2
+        with:
+          name: dist-linux-deb
+          path: test-bdoink/_pkgs
+      - name: 'Echo download path'
+        run: echo ${{steps.download_linux.outputs.download-path}}
+      - name: Display structure of downloaded files
+        run: ls -R _pkgs
