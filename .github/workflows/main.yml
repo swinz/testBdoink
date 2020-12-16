@@ -128,3 +128,15 @@ jobs:
         run: ls -R
       - name: Display package directory
         run: ls -latr temppkg
+
+      - name: s3 artifact copy
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.BDOINK_S3_BUILD_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.BUILD_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.BUILD_AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'us-east-1'
+          SOURCE_DIR: 'temppkg'
+          DEST_DIR: 'artifacts/monarch-app/develop/latest'
