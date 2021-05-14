@@ -1,0 +1,19 @@
+# name of your github action
+name: manual
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_tag:
+        description: 'name of tag that we want to push to the target'
+        required: true
+      target_branch:
+        description: 'name of branch that we want to push to'
+        required: true
+jobs:
+  echo_inputs:
+    runs_on: ubuntu-latest
+    steps:
+    - run: |
+      echo "Source Tag:    ${{ github.event.inputs.source_tag }}"
+      echo "Target Branch: ${{ github.event.inputs.target_branch }}"
