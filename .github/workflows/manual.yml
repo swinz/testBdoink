@@ -13,7 +13,11 @@ on:
 jobs:
   echo_inputs:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
-    - run: |
-      echo "Source Tag:    ${{ github.event.inputs.source_tag }}"
-      echo "Target Branch: ${{ github.event.inputs.target_branch }}"
+    - name: install
+      run: |
+        echo "Source Tag:    ${{ github.event.inputs.source_tag }}"
+        echo "Target Branch: ${{ github.event.inputs.target_branch }}"
