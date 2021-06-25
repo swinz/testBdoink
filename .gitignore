@@ -1,6 +1,7 @@
 
 # Created by https://www.toptal.com/developers/gitignore/api/yarn,node,vue,vuejs
 # Edit at https://www.toptal.com/developers/gitignore?templates=yarn,node,vue,vuejs
+.DS_Store
 
 ### Node ###
 # Logs
