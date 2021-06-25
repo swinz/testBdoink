@@ -28,25 +28,15 @@ jobs:
         set -x
         git config --global user.name 'Release Bot'
         git config --global user.email 'release-bot@users.noreply.github.com'
-        echo "fetching tags"
         git fetch --tags
-        echo "create branch at tag ${{ github.event.inputs.source_tag }}"
         git checkout tags/${{ github.event.inputs.source_tag }} -B branch_${{ github.event.inputs.source_tag }}
-        echo "checking out branch: ${{ github.event.inputs.target_branch }}"
         git checkout ${{ github.event.inputs.target_branch }}
-        echo "merge"
         git merge -s ours branch_${{ github.event.inputs.source_tag }}
-        echo "detach"
         git checkout --detach branch_${{ github.event.inputs.source_tag }}
-        echo "reset"
         git reset --soft ${{ github.event.inputs.target_branch }}
-        echo "checkout ${{ github.event.inputs.target_branch }}"
         git checkout ${{ github.event.inputs.target_branch }}
-        echo "commit amend"
         git commit --amend -C HEAD
-        echo "commit prep"
         git commit -am "prep for ${{ github.event.inputs.target_branch }} ${{ github.event.inputs.source_tag }}"
-        echo "pushing"
         git push origin  ${{ github.event.inputs.target_branch }}
         echo "Done"
 
