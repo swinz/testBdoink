@@ -25,6 +25,7 @@ jobs:
       run: |
         echo "Source Tag:    ${{ github.event.inputs.source_tag }}"
         echo "Target Branch: ${{ github.event.inputs.target_branch }}"
+        set -x
         git config --global user.name 'Release Bot'
         git config --global user.email 'release-bot@users.noreply.github.com'
         echo "fetching tags"
