@@ -25,3 +25,15 @@ jobs:
       run: |
         echo "Source Tag:    ${{ github.event.inputs.source_tag }}"
         echo "Target Branch: ${{ github.event.inputs.target_branch }}"
+        git fetch --tags
+        git checkout tags/${{ github.event.inputs.source_tag }} -b branch_${{ github.event.inputs.source_tag }}
+        git checkout ${{ github.event.inputs.target_branch }}
+        git merge -s ours branch_${{ github.event.inputs.source_tag }}
+        git checkout --detach branch_${{ github.event.inputs.source_tag }}
+        git reset --soft ${{ github.event.inputs.target_branch }}
+        git checkout ${{ github.event.inputs.target_branch }}
+        git commit --amend -C HEAD
+        git commit -am "prep for ${{ github.event.inputs.target_branch }} ${{ github.event.inputs.source_tag }}"
+        git push origin  ${{ github.event.inputs.target_branch }}
+        echo "Done"
+
