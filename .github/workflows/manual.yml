@@ -45,7 +45,7 @@ jobs:
 
         git checkout tags/$MYTAG -B $MYBRANCH
         git checkout $TARGETBRANCH
-        git merge -s ours $MYBRANCH
+        git merge -s ours --allow-unrelated-histories $MYBRANCH
         git checkout --detach $MYBRANCH
         git reset --soft $TARGETBRANCH
         git checkout $TARGETBRANCH
