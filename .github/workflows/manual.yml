@@ -31,6 +31,10 @@ jobs:
         export MYBRANCH="branch_${{ github.event.inputs.source_tag }}"
         export TARGETBRANCH="${{ github.event.inputs.target_branch }}"
 
+        git config --global user.name 'Release Bot'
+        git config --global user.email 'release-bot@users.noreply.github.com'
+        git fetch --tags
+
         # Validation ------------------------
         # tag must be version tag
         echo "$MYTAG" | egrep '^v[0-9]+\.[0-9]+\.[0-9]$' || (echo 'TAG MUST BE VERSION TAG (v#.#.#)' ; exit 1)
@@ -39,9 +43,6 @@ jobs:
         # target branch must exist
         if git rev-parse "$TARGETBRANCH" >/dev/null 2>&1; then   echo "branch: $TARGETBRANCH exists"; else   echo "BRANCH: $TARGETBRANCH DOES NOT EXIST"; exit 3; fi
 
-        git config --global user.name 'Release Bot'
-        git config --global user.email 'release-bot@users.noreply.github.com'
-        git fetch --tags
         git checkout tags/$MYTAG -B $MYBRANCH
         git checkout $TARGETBRANCH
         git merge -s ours $MYBRANCH
