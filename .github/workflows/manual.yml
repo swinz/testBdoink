@@ -42,7 +42,6 @@ jobs:
         git checkout $TARGETBRANCH
         git commit --amend -C HEAD
         echo "$MYTAG" > ./buildinfo.txt
-        git add ./buildinfo.txt
         git commit -am "prep for $TARGETBRANCH $MYTAG"
         git log
         git status -s
