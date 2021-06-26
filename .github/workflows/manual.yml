@@ -42,7 +42,8 @@ jobs:
         git checkout $TARGETBRANCH
         git commit --amend -C HEAD
         git commit -am "prep for $TARGETBRANCH $MYTAG"
-        git push origin  $TARGETBRANCH
         git log
+        git status -s
+        git push origin  $TARGETBRANCH
         echo "Done"
 
