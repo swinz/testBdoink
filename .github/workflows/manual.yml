@@ -20,23 +20,29 @@ jobs:
     - name: checkout
       uses: actions/checkout@v2
       with:
+        ref: ${{ github.event.inputs.target_branch }}
         token:  ${{ github.token }}
     - name: install
       run: |
         echo "Source Tag:    ${{ github.event.inputs.source_tag }}"
         echo "Target Branch: ${{ github.event.inputs.target_branch }}"
         set -x
+        export MYTAG="${{ github.event.inputs.source_tag }}"
+        export MYBRANCH="branch_${{ github.event.inputs.source_tag }}"
+        export TARGETBRANCH="${{ github.event.inputs.target_branch }}"
+
         git config --global user.name 'Release Bot'
         git config --global user.email 'release-bot@users.noreply.github.com'
         git fetch --tags
-        git checkout tags/${{ github.event.inputs.source_tag }} -B branch_${{ github.event.inputs.source_tag }}
-        git checkout ${{ github.event.inputs.target_branch }}
-        git merge -s ours branch_${{ github.event.inputs.source_tag }}
-        git checkout --detach branch_${{ github.event.inputs.source_tag }}
-        git reset --soft ${{ github.event.inputs.target_branch }}
-        git checkout ${{ github.event.inputs.target_branch }}
+        git checkout tags/$MYTAG -B $MYBRANCH
+        git checkout $TARGETBRANCH
+        git merge -s ours $MYBRANCH
+        git checkout --detach $MYBRANCH
+        git reset --soft $TARGETBRANCH
+        git checkout $TARGETBRANCH
         git commit --amend -C HEAD
-        git commit -am "prep for ${{ github.event.inputs.target_branch }} ${{ github.event.inputs.source_tag }}"
-        git push origin  ${{ github.event.inputs.target_branch }}
+        git commit -am "prep for $TARGETBRANCH $MYTAG"
+        git push origin  $TARGETBRANCH
+        git log
         echo "Done"
 
