@@ -11,7 +11,7 @@ on:
         description: 'name of branch that we want to push to'
         required: true
 jobs:
-  echo_inputs:
+  do_stuff:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -41,6 +41,7 @@ jobs:
         git reset --soft $TARGETBRANCH
         git checkout $TARGETBRANCH
         git commit --amend -C HEAD
+        echo "$MYTAG" > ./buildinfo.txt
         git commit -am "prep for $TARGETBRANCH $MYTAG"
         git log
         git status -s
