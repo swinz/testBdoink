@@ -30,6 +30,14 @@ jobs:
         export MYTAG="${{ github.event.inputs.source_tag }}"
         export MYBRANCH="branch_${{ github.event.inputs.source_tag }}"
         export TARGETBRANCH="${{ github.event.inputs.target_branch }}"
+        
+        # Validation ------------------------
+        # tag must be version tag
+        echo "$MYTAG" | egrep '^v[0-9]+\.[0-9]+\.[0-9]$' || echo 'TAG MUST BE VERSION TAG (v#.#.#)' ; exit 1
+        # tag must exist
+        if git rev-parse "$MYTAG" >/dev/null 2>&1; then   echo "tag: $MYTAG exists"; else   echo "TAG $MYTAG DOES NOT EXIST"; exit 2; fi
+        # target branch must exist
+        if git rev-parse "$TARGETBRANCH" >/dev/null 2>&1; then   echo "branch: $TARGETBRANCH exists"; else   echo "BRANCH: $TARGETBRANCH DOES NOT EXIST"; exit 3; fi
 
         git config --global user.name 'Release Bot'
         git config --global user.email 'release-bot@users.noreply.github.com'
@@ -43,8 +51,8 @@ jobs:
         git commit --amend -C HEAD
         echo "$MYTAG" > ./buildinfo.txt
         git commit -am "prep for $TARGETBRANCH $MYTAG"
-        git log
-        git status -s
+        # git log
+        # git status -s
         git push origin  $TARGETBRANCH
-        echo "Done"
-
+        # TODO: delete mybranch
+        echo "Done $MYTAG -> $TARGETBRANCH"
